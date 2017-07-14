@@ -200,6 +200,36 @@ public class Main {
 
                System.out.println("Pujat");
                break;
+
+           case 4:
+               MegaHandler mh = new MegaHandler("user@mail.com", "password");
+
+               try {
+                   mh.login();
+               } catch (IOException e) {
+                   e.printStackTrace();
+               }
+               try {
+                    //download in the active directory
+                   mh.download("https://mega.nz/#!obx1BbgB!vl7Ck3ZjSOcRs2AG-Ej_iTPrya0yKayrF6NBWdUq6DY");
+
+               } catch (InvalidAlgorithmParameterException e) {
+                   e.printStackTrace();
+               } catch (IOException e) {
+                   e.printStackTrace();
+               } catch (NoSuchAlgorithmException e) {
+                   e.printStackTrace();
+               } catch (JSONException e) {
+                   e.printStackTrace();
+               } catch (InvalidKeyException e) {
+                   e.printStackTrace();
+               } catch (NoSuchPaddingException e) {
+                   e.printStackTrace();
+               } catch (BadPaddingException e) {
+                   e.printStackTrace();
+               } catch (IllegalBlockSizeException e) {
+                   e.printStackTrace();
+               }
        }
 
 
