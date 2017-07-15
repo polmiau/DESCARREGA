@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="DESCARREGA:war exploded">
+  <artifact type="jar" name="DESCARREGA:war exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/DESCARREGA_war_exploded</output-path>
-    <root id="root">
+    <root id="archive" name="DESCARREGA_war exploded.jar">
       <element id="javaee-facet-resources" facet="DESCARREGA/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">

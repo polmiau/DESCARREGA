@@ -11,10 +11,7 @@ import org.json.JSONException;
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -36,7 +33,7 @@ public class Main {
     public static void main(String args[]) throws DbxException {
 
 
-        System.out.println("1.Dropbox        2.Gestiona Serie ");
+        System.out.println("1.Dropbox        2.Gestiona Serie   3.Url Remote    4.DL MEGA   5.ULDroppbox");
 
         Scanner numsc = new Scanner(System.in);
         int numero=numsc.nextInt();
@@ -204,6 +201,10 @@ public class Main {
            case 4:
                MegaHandler mh = new MegaHandler("user@mail.com", "password");
 
+               System.out.println("Escriu un Link: ");
+
+               Scanner sclink = new Scanner(System.in);
+               String link = new String(sclink.nextLine());
                try {
                    mh.login();
                } catch (IOException e) {
@@ -211,7 +212,7 @@ public class Main {
                }
                try {
                     //download in the active directory
-                   mh.download("https://mega.nz/#!obx1BbgB!vl7Ck3ZjSOcRs2AG-Ej_iTPrya0yKayrF6NBWdUq6DY");
+                   mh.download(link);
 
                } catch (InvalidAlgorithmParameterException e) {
                    e.printStackTrace();
@@ -230,6 +231,54 @@ public class Main {
                } catch (IllegalBlockSizeException e) {
                    e.printStackTrace();
                }
+               break;
+
+
+           case 5:
+
+
+
+               System.out.println("Escriu path per pujar ");
+               Scanner sc2f1= new Scanner(System.in);
+               String pat= sc2f1.nextLine();
+
+               DbxRequestConfig config3 = new DbxRequestConfig("dropbox/", "en_US");
+               DbxClientV2 client3 = new DbxClientV2(config3, ACCESS_TOKEN);
+
+
+              /*FullAccount account = client3.users().getCurrentAccount();
+               System.out.println(account.getName().getDisplayName());
+
+               ListFolderResult result2 = client2.files().listFolder("");
+               while (true) {
+                   for (Metadata metadata : result2.getEntries()) {
+                       System.out.println(metadata.getPathLower());
+                   }
+
+                   if (!result2.getHasMore()) {
+                       break;
+                   }
+
+                   result = client2.files().listFolderContinue(result2.getCursor());
+               }*/
+
+               System.out.println("Introdueix path:");
+
+               Scanner scpath3 = new Scanner(System.in);
+               String pathh3= scpath3.nextLine();
+
+
+               try (InputStream in = new FileInputStream(pat)) {
+                   FileMetadata metadata = client3.files().uploadBuilder(pathh3)
+                           .uploadAndFinish(in);
+               } catch (FileNotFoundException e) {
+                   e.printStackTrace();
+               } catch (IOException e) {
+                   e.printStackTrace();
+               }
+
+               System.out.println("Pujat");
+               break;
        }
 
 
